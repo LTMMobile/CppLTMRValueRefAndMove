@@ -1,0 +1,115 @@
+
+Créez la classe Segment tel que :
+
+class Point {
+    public:
+        double x = 0.0;
+        double y = 0.0;
+
+        Point( double xx, double yy ) : x(xx), y(yy) {}
+};
+
+class Segment {
+    private:
+        Point * p1, * p2;
+    public:
+        Segment( const Point& pp1, const Point& pp2 ) :
+                    p1(new Point(pp1)), p2(new Point(pp2)) {
+        }
+	
+	// constructeur par copie
+        Segment( const Segment& cs ) {
+            p1 = ........;
+            p2 = ........;
+        }
+
+	// move constructor
+        Segment( Segment&& cs ) : p1(nullptr), p2(nullptr) {
+            ....
+        }
+
+	// move operator =
+        Segment& operator = (Segment&& cs) {
+
+            ....
+
+            return *this;
+        }
+
+	// Le segment retourne son clone
+        Segment clone() {
+            ....
+        }
+
+        void printAddress() {
+            cout << "objet = " << this << ", p1 = " << p1 << ", p2 = " << p2 << endl;
+        }
+
+        ~Segment() {
+            if( p1 ) { delete p1; p1 = nullptr; }
+            if( p2 ) { delete p2; p2 = nullptr; }
+        }
+};
+
+
+int main() {
+
+    Segment s1( Point(1.2, 3.4), Point(3.4, 8.9) );
+    s1.printAddress();
+
+    Segment s2( s1 );
+    s2.printAddress();
+    s2 = s1;
+
+    Segment s3( std::move(s1) ); 
+ // Segment s3( s1.clone() );
+ // Segment s3( Segment( Point(1.2, 3.4), Point(3.4, 8.9) ) );
+    s3.printAddress();
+
+    s2 = s3.clone();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+––––
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
